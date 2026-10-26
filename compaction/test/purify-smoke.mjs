@@ -172,12 +172,12 @@ console.log('T7 R6 人工破坏')
 /* ═══ T8 结构化不破坏 ═══ */
 console.log('T8 结构化不破坏')
 {
-  const structured = '配置示例：\n\n```json\n{"thresholdRatio": 0.7, "retainRatio": 0.16}\n```\n\n| 字段 | 值 |\n|---|---|\n| auto | true |\n\n命令：adb -s 192.168.8.100:5555 shell input tap 540 1200。\n\n表格之后表格之后表格之后表格之后表格之后表格之后表格之后。'
+  const structured = '配置示例：\n\n```json\n{"thresholdRatio": 0.7, "retainRatio": 0.16}\n```\n\n| 字段 | 值 |\n|---|---|\n| auto | true |\n\n命令：adb -s 192.0.2.10:5555 shell input tap 540 1200。\n\n表格之后表格之后表格之后表格之后表格之后表格之后表格之后。'
   const r = purifySummary([{ type: 'text', text: structured }])
   const t = r.summary[0].text
   ok(t.includes('{"thresholdRatio": 0.7, "retainRatio": 0.16}'), 'JSON 代码块原样')
   ok(t.includes('| auto | true |') && t.includes('|---|---|'), 'markdown 表格原样')
-  ok(t.includes('adb -s 192.168.8.100:5555 shell input tap 540 1200'), '命令串原样（端口不删）')
+  ok(t.includes('adb -s 192.0.2.10:5555 shell input tap 540 1200'), '命令串原样（端口不删）')
 }
 
 /* ═══ T9 噪声闸门 ═══ */
