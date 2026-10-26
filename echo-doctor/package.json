@@ -8,5 +8,35 @@
     "echo-doctor": "./echo-doctor.mjs"
   },
   "author": "dsh-agent-organs contributors",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moomwest/dsh-memory-toolkit.git",
+    "directory": "echo-doctor"
+  },
+  "homepage": "https://github.com/moomwest/dsh-memory-toolkit/tree/main/echo-doctor#readme",
+  "bugs": {
+    "url": "https://github.com/moomwest/dsh-memory-toolkit/issues"
+  },
+  "keywords": [
+    "dsh",
+    "deepseek",
+    "memory",
+    "doctor",
+    "diagnostics",
+    "health-check",
+    "cli"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "echo-doctor.mjs",
+    "echo-config.mjs",
+    "README.md",
+    "package.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }

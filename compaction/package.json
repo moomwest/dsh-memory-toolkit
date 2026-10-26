@@ -30,5 +30,38 @@
     }
   },
   "author": "dsh-agent-organs contributors",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moomwest/dsh-memory-toolkit.git",
+    "directory": "compaction"
+  },
+  "homepage": "https://github.com/moomwest/dsh-memory-toolkit/tree/main/compaction#readme",
+  "bugs": {
+    "url": "https://github.com/moomwest/dsh-memory-toolkit/issues"
+  },
+  "keywords": [
+    "dsh",
+    "deepseek",
+    "compaction",
+    "context-window",
+    "checkpoint",
+    "memory",
+    "llm",
+    "ai-agent"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/dsh-compaction-basic": {
+      "optional": true
+    },
+    "@deepseek-ai/dsh-compaction": {
+      "optional": true
+    }
+  }
 }
