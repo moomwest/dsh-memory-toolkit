@@ -1,0 +1,12 @@
+{
+  "name": "dsh-echo-doctor",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "description": "回声六层记忆体检器：全库逐帧核查 DSH 记忆中枢/书房的健康状态，给出人类可读的报错与修复提示",
+  "bin": {
+    "echo-doctor": "./echo-doctor.mjs"
+  },
+  "author": "dsh-agent-organs contributors",
+  "license": "MIT"
+}

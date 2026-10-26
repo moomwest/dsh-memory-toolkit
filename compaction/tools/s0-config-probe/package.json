@@ -1,0 +1,12 @@
+{
+  "name": "dsh-s0-config-probe",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "S0 一次性探针：确认 YanqingCompaction 实例的 config 注入方式与 keys（compaction 净化层 2a 任务书 S0）",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

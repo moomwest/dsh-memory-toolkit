@@ -1,0 +1,20 @@
+# 依赖
+node_modules/
+
+# 日志 / 运行时产物
+*.log
+compaction-debug.log
+compaction-purify-shadow.jsonl
+
+# 个人数据 / 私有配置（切勿提交）
+soul/
+memory/
+*.config.json
+echo.config.json
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# 本地构建脚手架（非工具本体）
+_build_*.py

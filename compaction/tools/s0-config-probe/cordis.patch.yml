@@ -1,0 +1,3 @@
+- insert:
+    - id: dsh-s0-config-probe
+      name: 'dsh-s0-config-probe'
