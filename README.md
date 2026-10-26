@@ -8,6 +8,23 @@
 
 ---
 
+## 先读这个（30 秒）
+
+**它不会让压缩变好，它让压缩之后可追溯。** 压缩本身仍由 DSH 宿主完成，本仓库只补四件事：
+门牌（摘要里留可回取的指针）、净化层（只观测不改产物）、剥离（避开会引起失败的坏块）、体检（事前报错而不是静默）。
+
+**什么情况下先别装：**
+
+- 你的 DSH 不是 0.1.x —— 本仓库对着 0.1.7-rc.1 实测，0.2.x 的 preset 接管行为不同（那版还有 `sanitizeProfile` 重置 profile 的坑）。
+- 你只有一个 profile 且它是你唯一在用的 —— 装错要回退，先读下面的「回退」。
+- 你期待它提升压缩质量 —— 它不改压缩算法，一行摘要也是宿主写的。
+
+**装完没生效，先别怀疑安装** —— 读 [`compaction/HOW-TO-TAKEOVER.md`](./compaction/HOW-TO-TAKEOVER.md)。
+cordis 的服务注册是**先到先得**：同名 Service 后注册的**不报错、不警告、静默不生效**。
+那一页讲的就是「为什么我装了，兜底压缩还是内置那套」，以及两条接管路径。
+
+---
+
 ## 组件
 
 ### 1. `compaction/` —— 给兜底压缩装「门牌」
@@ -35,7 +52,7 @@ dsh-memory-toolkit/
 │   ├── tools/           # 接管工具 / 扫描器 / 探针
 │   ├── test/            # 单元测试 + 集成测试
 │   ├── cordis.patch.yml # preset 接管补丁（参考）
-│   └── HOW-TO-TAKEOVER.md
+│   └── HOW-TO-TAKEOVER.md  # ★ 装完没生效，读这个
 ├── echo-doctor/         # 记忆体检器
 │   ├── echo-doctor.mjs
 │   └── echo-config.mjs  # 唯一的配置源（env / 命令行 / config.json）
@@ -49,7 +66,18 @@ dsh-memory-toolkit/
 
 两个组件都是**独立**的，可单独使用。
 
-### compaction 插件
+### 0. 先拿到代码（现在是 clone，不是 npm）
+
+npm 包尚未发布，`dsh plugin add` 要的 `<path>` 指的是**你本地这个目录**：
+
+```bash
+git clone https://github.com/moomwest/dsh-memory-toolkit.git
+cd dsh-memory-toolkit
+```
+
+> 两个组件都在仓库内直接可用，不需要构建、不需要 `npm install`（无运行时依赖）。
+
+### 1. compaction 插件
 
 它是 DSH 的一个 bundle 插件，靠 `cordis.patch.yml` 接管 preset 内的压缩器。关键配置（在你的 profile 里）：
 
@@ -88,6 +116,24 @@ node echo-doctor/echo-doctor.mjs --soul /path/to/soul --memory /path/to/memory
 > 配置优先级：**命令行参数 > 环境变量 > echo.config.json > 推断**。`soul` 和 `memory` 缺了会直接停下并告诉你怎么办（不静默继续）。
 
 ---
+
+---
+
+## 回退（先看这个再动手）
+
+装的过程会动你的 profile：`bundles` 的顺序、以及内置压缩项的启用状态。
+**要退，就退这几处，然后重启 DSH：**
+
+1. `bundles` 里删掉 `dsh-agent-compaction`（以及你可能一起排过的 pruner）。
+2. 把被禁用的内置压缩项恢复回 `bundles`。
+3. 重启 DSH（宿主半只在进程启动时加载一次）。
+
+★ **改之前先复制一份 profile 的 `package.json`**。具体字段以你那份快照为准，别照抄别人的。
+
+**回退不会丢记忆。** 本仓库的边界是：不碰落盘策略、不改 `compaction-basic` 的任何文件、不改你的 checkpoint、不碰 `soul/`。
+它只在摘要**生成前**插入一段文本，以及往影子日志写观测记录。压缩失败时它降级成「照常压缩，只是没加指针」。
+
+想确认自己装到哪一步了，不用等一次真实压缩 —— 见 [`compaction/HOW-TO-TAKEOVER.md`](./compaction/HOW-TO-TAKEOVER.md) 的「怎么验」一节。
 
 ## 测试
 
