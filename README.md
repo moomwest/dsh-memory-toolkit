@@ -66,16 +66,30 @@ dsh-memory-toolkit/
 
 两个组件都是**独立**的，可单独使用。
 
-### 0. 先拿到代码（现在是 clone，不是 npm）
+### 0. 拿到代码：npm 或 clone
 
-npm 包尚未发布，`dsh plugin add` 要的 `<path>` 指的是**你本地这个目录**：
+两个包都已发布到 npm：
+
+| 包 | 用途 | |
+|---|---|---|
+| [`dsh-agent-compaction`](https://www.npmjs.com/package/dsh-agent-compaction) | 压缩门牌 + 净化层 + 剥离 | 0.1.0 |
+| [`dsh-echo-doctor`](https://www.npmjs.com/package/dsh-echo-doctor) | 记忆体检器（CLI） | 0.1.0 |
+
+**体检器可以直接跑，不用 clone：**
 
 ```bash
-git clone https://github.com/moomwest/dsh-memory-toolkit.git
-cd dsh-memory-toolkit
+npx dsh-echo-doctor --soul /path/to/soul --memory /path/to/memory
 ```
 
-> 两个组件都在仓库内直接可用，不需要构建、不需要 `npm install`（无运行时依赖）。
+**压缩插件要接进 profile**，而 `dsh plugin add` 收的是**目录路径**而不是包名，所以先把它落到本地：
+
+```bash
+npm i dsh-agent-compaction      # 装进 node_modules，再把那个目录指给 dsh plugin add
+# 或者直接 clone 整个仓库（带测试与工具）
+git clone https://github.com/moomwest/dsh-memory-toolkit.git
+```
+
+> 无运行时依赖，不需要构建，也不需要 `npm install` 之外的其他步骤。
 
 ### 1. compaction 插件
 
